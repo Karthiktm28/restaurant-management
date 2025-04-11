@@ -8,7 +8,7 @@ public class RestaurantApp {
 
         // Language Selection
         System.out.println("=========================================");
-        System.out.println("🍽️  Welcome to the Restaurant Management System!");
+        System.out.println("🍽 Welcome to the Restaurant Management System!");
         System.out.println("=========================================\n");
 
         System.out.println("Select Language / Seleccione el idioma / ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ:");
@@ -17,7 +17,7 @@ public class RestaurantApp {
         System.out.println("3. ಕನ್ನಡ");
         System.out.print("Enter choice: ");
         int langChoice = scanner.nextInt();
-        scanner.nextLine(); // clear buffer
+        scanner.nextLine();
 
         Locale locale;
         if (langChoice == 2) {
@@ -30,12 +30,7 @@ public class RestaurantApp {
 
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
         System.out.println("\n" + bundle.getString("welcome"));
-
-        // Rest of your app logic continues exactly the same...
-        // (no changes needed to the rest of the code you shared)
-
-
-        // Load menu
+        
         List<MenuItem> menu = new ArrayList<>(List.of(
         	    new SpecialFoodItem(bundle.getString("item.biryani"), 12.99, MenuItem.Category.FOOD),
         	    new SpecialFoodItem(bundle.getString("item.kebab"), 8.49, MenuItem.Category.FOOD),
@@ -60,7 +55,7 @@ public class RestaurantApp {
             int choice;
             try {
                 choice = scanner.nextInt();
-                scanner.nextLine(); // consume newline
+                scanner.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine();
@@ -116,27 +111,25 @@ public class RestaurantApp {
 
                 case 4 -> {
                     if (order != null) {
-                        System.out.println(order);
-                        System.out.println(order); // Show existing order details
+                      
+                        System.out.println(order.toString().split("Date")[0] + 
+                                           "Date: " + new Date());
 
-                     // Count of items
-                     System.out.println("Total items in the order: " + order.getItems().stream().count());
+                        System.out.println("Total items in the order: " + order.getItems().size());
 
-                     // Grouping by category
-                     Map<MenuItem.Category, List<MenuItem>> groupedItems = order.getItems()
-                         .stream()
-                         .collect(Collectors.groupingBy(MenuItem::getCategory));
+                        Map<MenuItem.Category, List<MenuItem>> grouped = order.getItems()
+                            .stream()
+                            .collect(Collectors.groupingBy(MenuItem::getCategory));
 
-                     System.out.println("Grouped by category:");
-                     groupedItems.forEach((category, items) -> {
-                         System.out.println("- " + category + ":");
-                         items.forEach(item -> System.out.println("  • " + item.getName()));
-                     });
-                     
+                        grouped.forEach((category, items) -> {
+                            System.out.println("- " + category + ":");
+                            items.forEach(item -> System.out.println("  • " + item.getName()));
+                        });
                     } else {
                         System.out.println(bundle.getString("no.order"));
                     }
                 }
+
 
                 case 5 -> {
                     if (order != null) {
@@ -189,10 +182,11 @@ public class RestaurantApp {
                 }
 
                 default -> {
-                    int _ = choice; // Java 22 feature: unused pattern
+                    int unusedChoice = choice; // variable declared for clarity
                     System.out.println(bundle.getString("invalid.choice"));
                 }
             }
+
 
         }
     }
