@@ -65,15 +65,5 @@ java RestaurantApp
 └── order_log.txt (auto-generated)
 ```
 
----
 
-## GitHub
-This project is maintained on GitHub:
-[https://github.com/Karthiktm28/restaurant-management]
-
----
-
-## Author
-**[Karthik Thyloor Mahesh]**  
-OOP2 Java Assignment  
 
